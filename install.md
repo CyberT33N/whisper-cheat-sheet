@@ -29,97 +29,98 @@ install_whisper.ps1:
 <details><summary>Click to expand..</summary>
 
 ```powershell
-#!/usr/bin/env powershell
+# VoiceTyper: Whisper Lokale Installation
+# ==========================================
 
-Write-Host "🔧 VoiceTyper: Whisper Lokale Installation" -ForegroundColor Cyan
+Write-Host "VoiceTyper: Whisper Lokale Installation" -ForegroundColor Cyan
 Write-Host "==========================================" -ForegroundColor Cyan
 Write-Host ""
 
-# Prüfe, ob Python verfügbar ist
+# Pruefe, ob Python verfuegbar ist
 try {
     $pythonVersion = python --version 2>$null
     if ($LASTEXITCODE -eq 0) {
-        Write-Host "✅ Python gefunden: $pythonVersion" -ForegroundColor Green
+        Write-Host "[OK] Python gefunden: $pythonVersion" -ForegroundColor Green
     } else {
         throw "Python nicht gefunden"
     }
 } catch {
-    Write-Host "❌ Python ist nicht installiert oder nicht im PATH." -ForegroundColor Red
-    Write-Host "   Bitte installieren Sie Python von https://python.org" -ForegroundColor Yellow
-    Write-Host "   Stellen Sie sicher, dass 'Add to PATH' aktiviert ist." -ForegroundColor Yellow
+    Write-Host "[FEHLER] Python ist nicht installiert oder nicht im PATH." -ForegroundColor Red
+    Write-Host "         Bitte installieren Sie Python von https://python.org" -ForegroundColor Yellow
+    Write-Host "         Stellen Sie sicher, dass 'Add to PATH' aktiviert ist." -ForegroundColor Yellow
     exit 1
 }
 
-# Prüfe, ob pip verfügbar ist
+# Pruefe, ob pip verfuegbar ist
 try {
     $pipVersion = pip --version 2>$null
     if ($LASTEXITCODE -eq 0) {
-        Write-Host "✅ pip gefunden: $pipVersion" -ForegroundColor Green
+        Write-Host "[OK] pip gefunden: $pipVersion" -ForegroundColor Green
     } else {
         throw "pip nicht gefunden"
     }
 } catch {
-    Write-Host "❌ pip ist nicht verfügbar." -ForegroundColor Red
-    Write-Host "   pip sollte mit Python installiert werden." -ForegroundColor Yellow
+    Write-Host "[FEHLER] pip ist nicht verfuegbar." -ForegroundColor Red
+    Write-Host "         pip sollte mit Python installiert werden." -ForegroundColor Yellow
     exit 1
 }
 
 Write-Host ""
 
 # Installiere OpenAI Whisper
-Write-Host "🔄 Installiere OpenAI Whisper..." -ForegroundColor Yellow
+Write-Host "[INFO] Installiere OpenAI Whisper..." -ForegroundColor Yellow
 try {
     pip install openai-whisper
     if ($LASTEXITCODE -eq 0) {
-        Write-Host "✅ OpenAI Whisper erfolgreich installiert!" -ForegroundColor Green
+        Write-Host "[OK] OpenAI Whisper erfolgreich installiert!" -ForegroundColor Green
     } else {
         throw "Installation fehlgeschlagen"
     }
 } catch {
-    Write-Host "❌ Installation von OpenAI Whisper fehlgeschlagen." -ForegroundColor Red
-    Write-Host "   Versuchen Sie: pip install --user openai-whisper" -ForegroundColor Yellow
+    Write-Host "[FEHLER] Installation von OpenAI Whisper fehlgeschlagen." -ForegroundColor Red
+    Write-Host "         Versuchen Sie: pip install --user openai-whisper" -ForegroundColor Yellow
     exit 1
 }
 
 Write-Host ""
 
-# Prüfe FFmpeg
-Write-Host "🔄 Prüfe FFmpeg-Installation..." -ForegroundColor Yellow
+# Pruefe FFmpeg
+Write-Host "[INFO] Pruefe FFmpeg-Installation..." -ForegroundColor Yellow
 try {
     $ffmpegVersion = ffmpeg -version 2>$null
     if ($LASTEXITCODE -eq 0) {
-        Write-Host "✅ FFmpeg ist bereits installiert" -ForegroundColor Green
+        Write-Host "[OK] FFmpeg ist bereits installiert" -ForegroundColor Green
     } else {
         throw "FFmpeg nicht gefunden"
     }
 } catch {
-    Write-Host "⚠️ FFmpeg ist nicht installiert." -ForegroundColor Yellow
-    Write-Host "   FFmpeg wird für optimale Audio-Verarbeitung benötigt." -ForegroundColor White
+    Write-Host "[WARNUNG] FFmpeg ist nicht installiert." -ForegroundColor Yellow
+    Write-Host "          FFmpeg wird fuer optimale Audio-Verarbeitung benoetigt." -ForegroundColor White
     Write-Host ""
-    Write-Host "   Installation unter Windows:" -ForegroundColor White
-    Write-Host "   - Chocolatey: choco install ffmpeg" -ForegroundColor Cyan
-    Write-Host "   - Scoop: scoop install ffmpeg" -ForegroundColor Cyan
-    Write-Host "   - Manuell: https://ffmpeg.org/download.html" -ForegroundColor Cyan
+    Write-Host "          Installation unter Windows:" -ForegroundColor White
+    Write-Host "          - Chocolatey: choco install ffmpeg" -ForegroundColor Cyan
+    Write-Host "          - Scoop: scoop install ffmpeg" -ForegroundColor Cyan
+    Write-Host "          - Manuell: https://ffmpeg.org/download.html" -ForegroundColor Cyan
     Write-Host ""
 }
 
 Write-Host ""
-Write-Host "🎉 Whisper-Installation abgeschlossen!" -ForegroundColor Green
+Write-Host "[ERFOLG] Whisper-Installation abgeschlossen!" -ForegroundColor Green
 Write-Host ""
-Write-Host "📋 Verfügbare Whisper-Modelle:" -ForegroundColor Cyan
+Write-Host "Verfuegbare Whisper-Modelle:" -ForegroundColor Cyan
 Write-Host "   - tiny   (~39MB)  - Schnell, niedrige Genauigkeit" -ForegroundColor White
-Write-Host "   - base   (~74MB)  - Ausgewogen (empfohlen für Start)" -ForegroundColor White  
+Write-Host "   - base   (~74MB)  - Ausgewogen (empfohlen fuer Start)" -ForegroundColor White  
 Write-Host "   - small  (~244MB) - Gut, mehr Genauigkeit" -ForegroundColor White
 Write-Host "   - medium (~769MB) - Sehr gut, hohe Genauigkeit" -ForegroundColor White
 Write-Host "   - large  (~1.5GB) - Beste Genauigkeit, langsam" -ForegroundColor White
 Write-Host "   - turbo  (~809MB) - Sehr gut und schnell" -ForegroundColor White
 Write-Host ""
-Write-Host "💡 Tipp: Modelle werden beim ersten Gebrauch automatisch heruntergeladen." -ForegroundColor Yellow
-Write-Host "💡 Starten Sie VoiceTyper neu und wählen Sie 'Whisper (Lokal)' in den Einstellungen." -ForegroundColor Yellow
+Write-Host "TIPP: Modelle werden beim ersten Gebrauch automatisch heruntergeladen." -ForegroundColor Yellow
+Write-Host "TIPP: Starten Sie VoiceTyper neu und waehlen Sie 'Whisper (Lokal)' in den Einstellungen." -ForegroundColor Yellow
 Write-Host ""
 
-# Pause für Benutzer
-Write-Host "Drücken Sie eine beliebige Taste zum Beenden..." -ForegroundColor Gray
+# Pause fuer Benutzer
+Write-Host "Druecken Sie eine beliebige Taste zum Beenden..." -ForegroundColor Gray
 $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown") 
 ```
 
